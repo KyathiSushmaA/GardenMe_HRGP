@@ -25,17 +25,35 @@ st.title("Rain Garden Planner and Impact Simulator")
 # ------------------------------------
 # Load GIS Data: MS4 Service Areas
 # ------------------------------------
-ms4_areas = gpd.read_file("https://drive.google.com/file/d/1Tfp6WNg2i6E7BkAWYSKwcIP0zTCUVzMx/view?usp=sharing&export=download")
+# Download the file from Google Drive
+url = "https://drive.google.com/uc?id=1Tfp6WNg2i6E7BkAWYSKwcIP0zTCUVzMx&export=download"
+response = requests.get(url)
 
-# ------------------------------------
-# Load Elevation Data and Downscale
-# ------------------------------------
-with rasterio.open("https://drive.google.com/file/d/1x96fXb17AttKBQmu0Jmv84iyjmzTjniM/view?usp=sharing&export=download") as src:
-    elevation = src.read(1)
-    elevation = np.where(elevation == src.nodata, np.nan, elevation)  # Handle NoData values
-    downscale_factor = 10
-    elevation_small = elevation[::downscale_factor, ::downscale_factor]
-    bounds = src.bounds
+# Save it locally
+with open("Hampton_Roads_MS4_Service_Areas.geojson", "wb") as f:
+    f.write(response.content)
+
+# Read the local file with GeoPandas
+ms4_areas = gpd.read_file("Hampton_Roads_MS4_Service_Areas.geojson")
+
+# # ------------------------------------
+# # Load Elevation Data and Downscale
+# # ------------------------------------
+# # Download the file from Google Drive
+
+# url = "https://drive.google.com/uc?id=1x96fXb17AttKBQmu0Jmv84iyjmzTjniM&export=download"
+# response = requests.get(url)
+
+# # Save it locally
+# with open("Job1084190_001_001.tif", "wb") as f:
+#     f.write(response.content)
+
+# with rasterio.open("Job1084190_001_001.tif") as src:
+#     elevation = src.read(1)
+#     elevation = np.where(elevation == src.nodata, np.nan, elevation)  # Handle NoData values
+#     downscale_factor = 10
+#     elevation_small = elevation[::downscale_factor, ::downscale_factor]
+#     bounds = src.bounds
 
 # ------------------------------------
 # Create Folium Map and Display Maps
@@ -69,9 +87,9 @@ with st.container():
     st.write("MS4 Service Areas")
     st_folium(m, width=800, height=600)  # Display the MS4 map
 
-with st.container():
-    st.write("Elevation Map")
-    st.image(elevation_small, caption="Elevation Map", use_column_width=True, clamp=True)  # Display the elevation map
+# with st.container():
+#     st.write("Elevation Map")
+#     st.image(elevation_small, caption="Elevation Map", use_column_width=True, clamp=True)  # Display the elevation map
 
 # ------------------------------------
 # User Input: Rain Garden Size and Soil Type
