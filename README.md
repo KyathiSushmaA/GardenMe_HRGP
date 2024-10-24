@@ -1,8 +1,7 @@
-# GardenMe_HRGP
-# 🌧️ Rain Garden Planner and Impact Simulator
+# 🌧️ Rain Garden Planner and Impact Simulator - GardenMe HRGP
 
 ## Description
-This interactive web application helps users plan rain gardens by simulating storm events and providing insights based on GIS data. It integrates elevation data, weather forecasts, and environmental datasets to assess the impact of rain gardens in mitigating runoff.
+This interactive web application HRGP (which means Hampton Roads Rain Garden Planner) helps users plan rain gardens by simulating storm events and providing insights based on GIS data. It integrates elevation data, weather forecasts, and environmental datasets to assess the impact of rain gardens in mitigating runoff.
 
 ---
 
